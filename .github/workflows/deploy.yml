@@ -1,0 +1,28 @@
+name: Deploy on Merge to Main
+
+on:
+  push:
+    branches:
+      - main
+
+jobs:
+  manual-approval:
+    runs-on: ubuntu-latest
+
+    environment:
+      name: production  # Esto activa la espera de aprobación manual
+      url: https://example.com  # URL de despliegue, puede ser opcional
+
+    steps:
+      - name: Esperando aprobación manual
+        run: echo "El proceso de despliegue está esperando aprobación manual..."
+
+  deploy:
+    needs: manual-approval
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout del código fuente
+        uses: actions/checkout@v4
+
+      - name: Simulando despliegue
+        run: echo "🚀 Desplegando aplicación en producción..."
